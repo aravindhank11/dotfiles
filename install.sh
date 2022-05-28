@@ -14,7 +14,7 @@ check_pkgs()
 }
 
 # Pre-dependency check
-check_pkgs curl wget git fonts-powerline
+check_pkgs curl wget git fonts-powerline taskwarrior
 
 ################################## VIM ##########################################
 

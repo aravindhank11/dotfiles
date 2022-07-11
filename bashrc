@@ -112,3 +112,29 @@ export PROMPT_DIRTRIM=1
 #                             Run task command on every bash fork                                  #
 #**************************************************************************************************#
 task
+
+alias lt='leetcode'
+
+function lt-show-hard {
+    lt list -q hD
+}
+
+function lt-show-med {
+    lt list -q mD
+}
+
+function lt-show {
+    lt list -q ED
+}
+
+function lt-code {
+    lt show $1 -gx -l cpp
+}
+
+function lt-test {
+    lt test $1 -t $2
+}
+
+function lt-submit {
+    lt submit $1
+}

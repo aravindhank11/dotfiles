@@ -5,7 +5,7 @@ check_pkgs()
     pkgs=$@
     for pkg in $pkgs
     do
-        if [[ $(dpkg -l | grep $pkg | wc -l) -eq 0 ]]; then
+        if [[ $(dpkg -l | grep $pkg | grep -v ^rc | wc -l) -eq 0 ]]; then
             echo "$pkg is unavailable. Install it with:"
             echo "  sudo apt install $pkg"
             exit 1
@@ -14,7 +14,7 @@ check_pkgs()
 }
 
 # Pre-dependency check
-check_pkgs curl wget git fonts-powerline taskwarrior
+check_pkgs curl wget git fonts-powerline taskwarrior npm node libsecret-tools
 
 ################################## VIM ##########################################
 
@@ -35,3 +35,10 @@ vim -E -c PlugInstall -c q -c w -c q
 # Link bashrc
 sed -i "s|. $(pwd)/bashrc||g" ~/.bashrc
 echo ". $(pwd)/bashrc" >> ~/.bashrc
+
+############################### LEET CODE ########################################
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+. ~/.bashrc
+nvm install --lts
+npm install -g leetcode-cli
+leetcode plugin -i cookie.chrome

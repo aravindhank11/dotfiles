@@ -15,6 +15,7 @@ set background=dark
 " Search dir you are currently in and then recursively
 set path=.,,**
 set backspace=indent,eol,start
+set ignorecase
 
 " Right side word limit "
 set colorcolumn=100
@@ -66,20 +67,23 @@ function! ToggleRelativeNumber()
 endfunction
 map <leader>n :call ToggleRelativeNumber()<CR>
 
-let g:mouse_toggle = 0
-set mouse=r
-function! ToggleMouse()
-    if(g:mouse_toggle == 0)
-        set mouse=a
-        let g:mouse_toggle = 1
-        echo "Mouse selection within vim"
-    else
-        set mouse=r
-        let g:mouse_toggle = 0
-        echo "Mouse selection global"
-    endif
-endfunction
+"let g:mouse_toggle = 0
+"set mouse=r
+"function! ToggleMouse()
+"    if(g:mouse_toggle == 0)
+"        set mouse=a
+"        let g:mouse_toggle = 1
+"        echo "Mouse selection within vim"
+"    else
+"        set mouse=r
+"        let g:mouse_toggle = 0
+"        echo "Mouse selection global"
+"    endif
+"endfunction
+set mouse=a
 map <C-c> :call ToggleMouse()<CR>
+
+vmap <C-c> "+y
 
 " Mouse resizing for splits
 " NOTE: This will work only with mouse=a

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+dir=$(dirname $0 | xargs -I{} realpath {})
+
 check_pkgs()
 {
     pkgs=$@
@@ -19,7 +21,7 @@ check_pkgs curl wget git fonts-powerline taskwarrior npm node libsecret-tools
 ################################## VIM ##########################################
 
 # Link vimrc
-ln -sf $(pwd)/vimrc ~/.vimrc
+ln -sf ${dir}/vimrc ~/.vimrc
 
 # Download PlugInstall
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
@@ -33,8 +35,8 @@ vim -E -c PlugInstall -c q -c w -c q
 # Ref: https://www.ditig.com/256-colors-cheat-sheet for colors
 # Ref: https://unix.stackexchange.com/a/124409
 # Link bashrc
-sed -i "s|. $(pwd)/bashrc||g" ~/.bashrc
-echo ". $(pwd)/bashrc" >> ~/.bashrc
+sed -i "s|. ${dir}/bashrc||g" ~/.bashrc
+echo ". ${dir}/bashrc" >> ~/.bashrc
 
 ############################### LEET CODE ########################################
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
@@ -42,3 +44,6 @@ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | b
 nvm install --lts
 npm install -g leetcode-cli
 leetcode plugin -i cookie.chrome
+
+############################### TMUX CONF ########################################
+ln -sf ${dir}/tmux.conf ~/.tmux.conf

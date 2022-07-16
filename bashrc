@@ -107,6 +107,21 @@ function bldcs {
 alias cs='cscope'
 export PROMPT_DIRTRIM=1
 
+#**************************************************************************************************#
+#                                           Tmux Stuffs                                            #
+#**************************************************************************************************#
+function tmux-new {
+    tmux new -s $1
+}
+
+function tmux-attach {
+    tmux attach -t $1
+}
+
+function tmux-kill {
+    tmux kill-session -t $1
+}
+
 
 #**************************************************************************************************#
 #                             Run task command on every bash fork                                  #

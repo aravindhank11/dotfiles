@@ -49,5 +49,4 @@ if [[ $1 == "-l" ]]; then
 fi
 
 ############################### TMUX CONF ########################################
-ln -sf ${dir}/tmux.conf ~/.tmux.conf
-tmux source-file ~/.tmux.conf
+ln -sf ${dir}/.tmux/.tmux.conf ~/.tmux.conf

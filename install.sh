@@ -50,3 +50,4 @@ fi
 
 ############################### TMUX CONF ########################################
 ln -sf ${dir}/tmux.conf ~/.tmux.conf
+tmux source-file ~/.tmux.conf

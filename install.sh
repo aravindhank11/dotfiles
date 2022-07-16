@@ -16,7 +16,7 @@ check_pkgs()
 }
 
 # Pre-dependency check
-check_pkgs curl wget git fonts-powerline taskwarrior npm node libsecret-tools
+check_pkgs curl wget git fonts-powerline taskwarrior libsecret-tools
 
 ################################## VIM ##########################################
 
@@ -39,11 +39,14 @@ sed -i "s|. ${dir}/bashrc||g" ~/.bashrc
 echo ". ${dir}/bashrc" >> ~/.bashrc
 
 ############################### LEET CODE ########################################
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-. ~/.bashrc
-nvm install --lts
-npm install -g leetcode-cli
-leetcode plugin -i cookie.chrome
+if [[ $1 == "-l" ]]; then
+    check_pkgs node
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+    . ~/.bashrc
+    nvm install --lts
+    npm install -g leetcode-cli
+    leetcode plugin -i cookie.chrome
+fi
 
 ############################### TMUX CONF ########################################
 ln -sf ${dir}/tmux.conf ~/.tmux.conf

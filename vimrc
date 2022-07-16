@@ -67,23 +67,22 @@ function! ToggleRelativeNumber()
 endfunction
 map <leader>n :call ToggleRelativeNumber()<CR>
 
-"let g:mouse_toggle = 0
-"set mouse=r
-"function! ToggleMouse()
-"    if(g:mouse_toggle == 0)
-"        set mouse=a
-"        let g:mouse_toggle = 1
-"        echo "Mouse selection within vim"
-"    else
-"        set mouse=r
-"        let g:mouse_toggle = 0
-"        echo "Mouse selection global"
-"    endif
-"endfunction
-set mouse=a
+let g:mouse_toggle = 0
+set mouse=r
+function! ToggleMouse()
+    if(g:mouse_toggle == 0)
+        set mouse=a
+        let g:mouse_toggle = 1
+        echo "Mouse selection within vim"
+    else
+        set mouse=r
+        let g:mouse_toggle = 0
+        echo "Mouse selection global"
+    endif
+endfunction
 map <C-c> :call ToggleMouse()<CR>
 
-vmap <C-c> "+y
+vmap <C-y> "+y
 
 " Mouse resizing for splits
 " NOTE: This will work only with mouse=a

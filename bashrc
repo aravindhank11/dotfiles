@@ -16,9 +16,10 @@ get_dir() {
     echo $(basename $(dirname $PWD))/$(basename $PWD)
 }
 
-# PS Format: (Red date) (Golden branch) (Blue path) (Gray Prompt)
+# PS Format: (Red date) (Green host) (Golden branch) (Blue path) (Gray Prompt)
 PS1='
 \[$(tput bold)$(tput setaf 197)\]$(get_date)\[$(tput sgr0)\]\
+\[$(tput bold)$(tput setaf 46)\] \h\[$(tput sgr0)\]\
 \[$(tput bold)$(tput setaf 172)\]$(get_git)\[$(tput sgr0)\]\
 \[$(tput bold)$(tput setaf  39)\] $(get_dir)\[$(tput sgr0)\]\
 \[$(tput bold)$(tput setaf 244)\] \$ \[$(tput sgr0)\]\

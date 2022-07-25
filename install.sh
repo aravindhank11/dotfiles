@@ -16,7 +16,7 @@ check_pkgs()
 }
 
 # Pre-dependency check
-pkgs="curl wget git fonts-powerline taskwarrior libsecret-tools"
+pkgs="curl wget git fonts-powerline libsecret-tools"
 sudo apt install -y $pkgs
 check_pkgs $pkgs
 

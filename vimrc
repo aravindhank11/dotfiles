@@ -18,7 +18,7 @@ set backspace=indent,eol,start
 set ignorecase
 
 " Right side word limit "
-set colorcolumn=100
+set colorcolumn=80
 hi ColorColumn ctermbg=red guibg=grey
 
 " highlight ColorColumn term=reverse ctermbg=0 guibg=#081c23

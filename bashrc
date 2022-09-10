@@ -123,7 +123,6 @@ function tmux-kill {
     tmux kill-session -t $1
 }
 
-
 #**************************************************************************************************#
 #                                            LeetCode Stuffs                                       #
 #**************************************************************************************************#
@@ -153,3 +152,8 @@ function lt-test {
 function lt-submit {
     lt submit $1
 }
+
+# To ensure split panes retain same dir
+if [[ -f /etc/profile.d/vte-2.91.sh ]]; then
+    . /etc/profile.d/vte-2.91.sh
+fi

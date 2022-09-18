@@ -31,10 +31,10 @@ let &t_EI.="\e[5 q" "EI = NORMAL mode (ELSE)
 
 "***************************** Basic Key mappings ******************************"
 " Go to start and end of line using Ctrl+A and Ctrl+E "
-imap <C-e> <ESC>A
-imap <C-a> <ESC>I
-nnoremap <C-e> <ESC>A
-nnoremap <C-a> <ESC>I
+map <C-a> <Esc>I
+inoremap <C-a> <Esc>I
+map <C-e> <Esc>A
+inoremap <C-e> <Esc>A
 
 " Tabs "
 nnoremap te :tabedit 
@@ -203,4 +203,12 @@ endfun
 map f :call ShowFuncName() <CR>
 
 " NerdTree Toggle
-nnoremap <C-n> :NERDTreeToggle<CR>
+" nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Spell-check Markdown files and Git Commit Messages
+autocmd FileType markdown setlocal spell
+autocmd FileType gitcommit setlocal spell
+
+" Enable dictionary auto-completion in Markdown files and Git Commit Messages
+autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType gitcommit setlocal complete+=kspell

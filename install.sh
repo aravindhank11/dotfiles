@@ -52,3 +52,4 @@ fi
 
 ############################### TMUX CONF ########################################
 ln -sf ${dir}/.tmux/.tmux.conf ~/.tmux.conf
+ln -sf ${dir}/tmux.conf.local ~/.tmux.conf.local

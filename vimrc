@@ -16,6 +16,7 @@ set background=dark
 set path=.,,**
 set backspace=indent,eol,start
 set ignorecase
+set cursorline
 
 " Right side word limit "
 set colorcolumn=80

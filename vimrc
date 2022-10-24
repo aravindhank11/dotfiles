@@ -55,34 +55,6 @@ set history=8192 " more history
 
 set pastetoggle=<leader>p
 
-let g:relative_number_toggle = 0
-set relativenumber
-function! ToggleRelativeNumber()
-    if(g:relative_number_toggle == 0)
-        set relativenumber!
-        let g:relative_number_toggle = 1
-    else
-        set relativenumber
-        let g:relative_number_toggle = 0
-    endif
-endfunction
-map <leader>n :call ToggleRelativeNumber()<CR>
-
-let g:mouse_toggle = 0
-set mouse=r
-function! ToggleMouse()
-    if(g:mouse_toggle == 0)
-        set mouse=a
-        let g:mouse_toggle = 1
-        echo "Mouse selection within vim"
-    else
-        set mouse=r
-        let g:mouse_toggle = 0
-        echo "Mouse selection global"
-    endif
-endfunction
-map <C-c> :call ToggleMouse()<CR>
-
 vmap <C-y> "+y
 
 " Mouse resizing for splits
@@ -126,7 +98,16 @@ Plug 'https://github.com/dr-kino/cscope-maps.git'
 " Nerd Tree "
 Plug 'https://github.com/preservim/nerdtree.git'
 
+" Python auto-complete "
+" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'https://github.com/davidhalter/jedi-vim.git'
+
 call plug#end()
+
+"***************************** Pluggin Key unmappings ******************************"
+" https://github.com/davidhalter/jedi-vim
+" Does let g:jedi#usages_command = "<leader>n"
+silent! unmap <leader>n
 
 "***************************** Pluggin Key mappings and sets ******************************"
 " Jump between hunks
@@ -134,7 +115,7 @@ nmap <Leader>gn <Plug>GitGutterNextHunk  " git next
 nmap <Leader>gp <Plug>GitGutterPrevHunk  " git previous
 
 " fuzzy finder "
-map <C-f> <Esc><Esc>:Files!<CR>
+map <C-f> <Esc><Esc>:Files<CR>
 inoremap <C-f> <Esc><Esc>:BLines!<CR>
 map <C-g> <Esc><Esc>:BCommits!<CR>
 
@@ -202,6 +183,34 @@ fun! ShowFuncName()
   call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
 map f :call ShowFuncName() <CR>
+
+let g:relative_number_toggle = 0
+set relativenumber
+function! ToggleRelativeNumber()
+    if(g:relative_number_toggle == 0)
+        set relativenumber!
+        let g:relative_number_toggle = 1
+    else
+        set relativenumber
+        let g:relative_number_toggle = 0
+    endif
+endfunction
+map <leader>e :call ToggleRelativeNumber()<CR>
+
+let g:mouse_toggle = 0
+set mouse=r
+function! ToggleMouse()
+    if(g:mouse_toggle == 0)
+        set mouse=a
+        let g:mouse_toggle = 1
+        echo "Mouse selection within vim"
+    else
+        set mouse=r
+        let g:mouse_toggle = 0
+        echo "Mouse selection global"
+    endif
+endfunction
+map <C-c> :call ToggleMouse()<CR>
 
 " NerdTree Toggle
 " nnoremap <C-n> :NERDTreeToggle<CR>

@@ -100,7 +100,7 @@ Plug 'https://github.com/preservim/nerdtree.git'
 
 " Python auto-complete "
 " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'https://github.com/davidhalter/jedi-vim.git'
+" Plug 'https://github.com/davidhalter/jedi-vim.git'
 
 call plug#end()
 
@@ -185,7 +185,7 @@ endfun
 map f :call ShowFuncName() <CR>
 
 let g:relative_number_toggle = 0
-set relativenumber
+"set relativenumber
 function! ToggleRelativeNumber()
     if(g:relative_number_toggle == 0)
         set relativenumber!
@@ -213,7 +213,7 @@ endfunction
 map <C-c> :call ToggleMouse()<CR>
 
 " NerdTree Toggle
-" nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Spell-check Markdown files and Git Commit Messages
 autocmd FileType markdown setlocal spell
@@ -222,3 +222,9 @@ autocmd FileType gitcommit setlocal spell
 " Enable dictionary auto-completion in Markdown files and Git Commit Messages
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
+
+" Open nerdtree if opened without args
+" autocmd StdinReadPre * let g:isReadingFromStdin = 1
+" autocmd VimEnter * if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
+autocmd VimEnter * NERDTree | wincmd p
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

@@ -224,7 +224,7 @@ autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
 
 " Open nerdtree if opened without args
-" autocmd StdinReadPre * let g:isReadingFromStdin = 1
+" autocmd StdinReadPre * let g:isReadingFromStdin = 2
 " autocmd VimEnter * if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
 autocmd VimEnter * NERDTree | wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

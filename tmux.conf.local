@@ -1,9 +1,9 @@
-# Ctrl-A + s => sync panes
-# Ctrl-A + S => unsync panes
+# Ctrl-A + s sync panes
+# Ctrl-A + S unsync panes
 bind s setw synchronize-panes on
 bind S setw synchronize-panes off
 
-# Shift + -> => Move to next tab
-# Shift + <- => Move to prev tab
+# Shift + right arrow Move to next tab
+# Shift + left arrow Move to prev tab
 bind-key -n S-Right next-window
 bind-key -n S-Left previous-window

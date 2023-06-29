@@ -1,5 +1,18 @@
-# Ctrl-A + s sync panes
-# Ctrl-A + S unsync panes
+### BINDINGS ###
+
+# Ctrl + x as prefix
+set -g prefix2 C-x
+set-option -g prefix C-x
+# Ctrl + s as prefix to level-2 (Nested tmux)
+bind-key -n C-s send-prefix
+
+# edit configuration
+bind e new-window -n "~/.tmux.conf.local" "EDITOR=\${EDITOR//mvim/vim} && EDITOR=\${EDITOR//gvim/vim} && \${EDITOR:-vim} ~/.tmux.conf.local && tmux source ~/.tmux.conf && tmux display \"~/.tmux.conf sourced\""
+# reload configuration
+bind r source-file ~/.tmux.conf \; display '~/.tmux.conf sourced'
+
+# Ctrl-x + s sync panes
+# Ctrl-x + S unsync panes
 bind s setw synchronize-panes on
 bind S setw synchronize-panes off
 
@@ -7,3 +20,58 @@ bind S setw synchronize-panes off
 # Shift + left arrow Move to prev tab
 bind-key -n S-Right next-window
 bind-key -n S-Left previous-window
+
+# create new windown with current path
+bind  c  new-window      -c "#{pane_current_path}"
+# split current window vertically with current path
+bind  |  split-window -h -c "#{pane_current_path}"
+# split current window horizontally
+bind  -  split-window -v -c "#{pane_current_path}"
+
+
+
+### NAVIGATION ###
+
+
+
+
+### APPEARANCE ###
+
+set -g default-terminal "screen-256color"
+if 'infocmp -x tmux-256color > /dev/null 2>&1' 'set -g default-terminal "tmux-256color"'
+
+# start windows numbering at 1
+set -g base-index 1
+
+# make pane numbering consistent with windows
+setw -g pane-base-index 1
+
+# rename window to reflect current program
+setw -g automatic-rename on
+
+# renumber windows when a window is closed
+set -g renumber-windows on
+
+# set terminal title
+set -g set-titles on
+
+# Wait shorter for commands
+set -s escape-time 10
+
+# Resize aggressively
+setw -g aggressive-resize on
+
+
+
+### THEME CONFIGS ###
+
+
+### TMUX PLUGINS ###
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'jimeh/tmux-themepack'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'

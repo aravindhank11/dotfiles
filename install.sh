@@ -17,8 +17,8 @@ check_pkgs()
 
 # Pre-dependency check
 pkgs="curl wget git fonts-powerline libsecret-tools"
-sudo apt install -y $pkgs
-check_pkgs $pkgs
+#sudo apt install -y $pkgs
+#check_pkgs $pkgs
 
 ################################## VIM ##########################################
 
@@ -51,5 +51,8 @@ if [[ $1 == "-l" ]]; then
 fi
 
 ############################### TMUX CONF ########################################
-ln -sf ${dir}/.tmux/.tmux.conf ~/.tmux.conf
-ln -sf ${dir}/tmux.conf.local ~/.tmux.conf.local
+mkdir -p  ~/.tmux/plugins/
+rm -rf ~/.tmux/plugins/tpm
+ln -sf ${dir}/tpm ~/.tmux/plugins/tpm
+ln -sf ${dir}/tmux.conf.local ~/.tmux.conf
+#~/.tmux/plugins/tpm/tpm

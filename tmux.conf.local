@@ -56,7 +56,7 @@ set -g renumber-windows on
 set -g set-titles on
 
 # Wait shorter for commands
-set -s escape-time 10
+set -s escape-time 0
 
 # Resize aggressively
 setw -g aggressive-resize on

@@ -67,7 +67,11 @@ function gcheckout {
 function gsquash {
     git rebase --interactive HEAD~$1
 }
-
+function gworktree {
+    branch=$1
+    path=$2
+    git worktree add -b ${branch} ${path}
+}
 #**************************************************************************************************#
 #                                              SSH Stuffs                                          #
 #**************************************************************************************************#

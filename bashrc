@@ -54,8 +54,6 @@ alias dmesg='dmesg --color=auto --reltime --human --nopager --decode'
 alias gfetch="git fetch --all --tags -f"
 alias gbranch="git branch 2>/dev/null | grep '^*' | colrm 1 2"
 alias gcp="git cherry-pick"
-alias gpush='var=`gbranch`; echo -e "pushing to $(tput setaf 39)$var$(tput sgr0)"; git push origin $var'
-alias gpush-f='var=`gbranch`; echo -e "$(tput setaf 197)force$(tput sgr0) pushing to $(tput setaf 39)$var$(tput sgr0)"; git push -f origin $var'
 alias grebase="git pull --rebase origin"
 alias gpull='git fetch && git pull'
 alias gstatus='git status -uno'
@@ -66,6 +64,31 @@ function gcheckout {
 }
 function gsquash {
     git rebase --interactive HEAD~$1
+}
+function gpush {
+    var=`gbranch`
+    opts=$@
+    force_flag=""
+    force_print=""
+
+    if [[ ${opts} == *"-f"* ]]; then
+        force_flag="-f"
+        force_print="$(tput setaf 197)force$(tput sgr0)"
+    fi
+
+    if [[ ${var} == "master" || ${var} == "main" ]]; then
+        if [[ ${opts} != *"-y"* ]]; then
+            printf "Are you sure you want to push to ${var} (y/n)? "
+            read answer
+            if [ "$answer" == "${answer#[Yy]}" ]; then
+                echo "$(tput setaf 197)Avoided Pushing to ${var}$(tput sgr0)"
+                return
+            fi
+        fi
+    fi
+
+    echo -e "${force_print} pushing to $(tput setaf 39)${var}$(tput sgr0)"
+    git push origin ${force_flag} ${var}
 }
 function gworktree {
     branch=$1
@@ -96,7 +119,7 @@ function scpp {
 #                                           Cscope Stuffs                                          #
 #**************************************************************************************************#
 function bldcs {
-    force=$1
+    local force=$1
     curr=`pwd`
     if [[ $force == "-f" || ! -f $curr/cscope.files ]]; then
         find $curr -type d \( -name build -o -name thirdparty -o -name test -o -name buildconfig -o -name dpdk \) -prune -false \

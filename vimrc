@@ -79,9 +79,6 @@ Plug 'https://github.com/airblade/vim-gitgutter.git'
 Plug 'https://github.com/junegunn/fzf.git'
 Plug 'https://github.com/junegunn/fzf.vim.git'
 
-" Fold "
-Plug 'https://github.com/tmhedberg/SimpylFold.git'
-
 " Notes maker "
 Plug 'https://github.com/vimwiki/vimwiki.git'
 
@@ -98,22 +95,18 @@ Plug 'https://github.com/dr-kino/cscope-maps.git'
 " Nerd Tree "
 Plug 'https://github.com/preservim/nerdtree.git'
 
-" Python auto-complete "
-" Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-" Plug 'https://github.com/davidhalter/jedi-vim.git'
+" Python syntax highlight "
+Plug 'https://github.com/python-mode/python-mode.git'
+
+" Async lint "
+Plug 'https://github.com/dense-analysis/ale.git'
+
+" Intelli-sense
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-"***************************** Pluggin Key unmappings ******************************"
-" https://github.com/davidhalter/jedi-vim
-" Does let g:jedi#usages_command = "<leader>n"
-silent! unmap <leader>n
-
 "***************************** Pluggin Key mappings and sets ******************************"
-" Jump between hunks
-nmap <Leader>gn <Plug>GitGutterNextHunk  " git next
-nmap <Leader>gp <Plug>GitGutterPrevHunk  " git previous
-
 " fuzzy finder "
 map <C-f> <Esc><Esc>:Files<CR>
 inoremap <C-f> <Esc><Esc>:BLines!<CR>
@@ -144,14 +137,6 @@ highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Re
 highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
-
-" fold "
-set nofoldenable
-set foldmethod=syntax
-filetype plugin on
-filetype indent on
-" Fold and unfold with mouse "
-" noremap <3-LeftMouse> za
 
 " ripgrep "
 let g:ackprg = 'rg --vimgrep --smart-case'
@@ -184,19 +169,6 @@ fun! ShowFuncName()
 endfun
 map f :call ShowFuncName() <CR>
 
-let g:relative_number_toggle = 0
-"set relativenumber
-function! ToggleRelativeNumber()
-    if(g:relative_number_toggle == 0)
-        set relativenumber!
-        let g:relative_number_toggle = 1
-    else
-        set relativenumber
-        let g:relative_number_toggle = 0
-    endif
-endfunction
-map <leader>e :call ToggleRelativeNumber()<CR>
-
 let g:mouse_toggle = 0
 set mouse=r
 function! ToggleMouse()
@@ -228,3 +200,21 @@ autocmd FileType gitcommit setlocal complete+=kspell
 " autocmd VimEnter * if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
 autocmd VimEnter * NERDTree | wincmd p
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Intelli-sense
+set encoding=utf-8
+set nobackup
+set nowritebackup
+set updatetime=300
+set signcolumn=yes
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction

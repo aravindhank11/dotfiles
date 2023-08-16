@@ -37,7 +37,7 @@ inoremap <C-a> <Esc>I
 map <C-e> <Esc>A
 inoremap <C-e> <Esc>A
 
-" Tabs "
+" Tabs - gap at last is intentional "
 nnoremap te :tabedit 
 nnoremap <C-j> :tabprevious<CR>
 nnoremap <C-k> :tabnext<CR>
@@ -45,7 +45,6 @@ augroup quickfix_tab | au!
     "Ref: https://vi.stackexchange.com/a/27795
     au filetype qf nnoremap <buffer> <C-t> <C-w><CR><C-w>T
 augroup END
-
 
 " use system clipboard by default
 set clipboard=unnamedplus
@@ -110,7 +109,8 @@ call plug#end()
 " fuzzy finder "
 map <C-f> <Esc><Esc>:Files<CR>
 inoremap <C-f> <Esc><Esc>:BLines!<CR>
-map <C-g> <Esc><Esc>:BCommits!<CR>
+map <C-g> <Esc><Esc>:RG<CR>
+" map <C-g> <Esc><Esc>:BCommits!<CR>
 
 " git blame for current line "
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
@@ -169,21 +169,6 @@ fun! ShowFuncName()
 endfun
 map f :call ShowFuncName() <CR>
 
-let g:mouse_toggle = 0
-set mouse=r
-function! ToggleMouse()
-    if(g:mouse_toggle == 0)
-        set mouse=a
-        let g:mouse_toggle = 1
-        echo "Mouse selection within vim"
-    else
-        set mouse=r
-        let g:mouse_toggle = 0
-        echo "Mouse selection global"
-    endif
-endfunction
-map <C-c> :call ToggleMouse()<CR>
-
 " NerdTree Toggle
 nnoremap <C-n> :NERDTreeToggle<CR>
 
@@ -198,8 +183,14 @@ autocmd FileType gitcommit setlocal complete+=kspell
 " Open nerdtree if opened without args
 " autocmd StdinReadPre * let g:isReadingFromStdin = 2
 " autocmd VimEnter * if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
-autocmd VimEnter * NERDTree | wincmd p
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd VimEnter * NERDTree | wincmd p
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Linter
+let g:ale_linters={
+\    'python': ['pylint'],
+\}
+let g:ale_python_pylint_options = '--rcfile ~/.pylintrc'
 
 " Intelli-sense
 set encoding=utf-8

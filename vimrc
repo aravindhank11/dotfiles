@@ -103,6 +103,10 @@ Plug 'https://github.com/dense-analysis/ale.git'
 " Intelli-sense
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" System copy & paste
+" cp (to copy) and cv (to paste)
+Plug 'christoomey/vim-system-copy'
+
 call plug#end()
 
 "***************************** Pluggin Key mappings and sets ******************************"

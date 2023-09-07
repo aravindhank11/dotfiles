@@ -47,7 +47,11 @@ augroup quickfix_tab | au!
 augroup END
 
 " use system clipboard by default
-set clipboard=unnamedplus
+if system('uname -s') == "Darwin\n"
+    set clipboard=unnamed "OSX
+else
+    set clipboard=unnamedplus "Linux
+endif
 
 set incsearch " incremental search (as string is being typed)
 set history=8192 " more history

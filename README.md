@@ -27,12 +27,12 @@ Press `8` to install Argonaut theme when prompted
 bash -c  "$(wget -qO- https://git.io/vQgMr)"
 ```
 
-### Install vimrc and bashrc
+### Install vimrc and termrc
 ```
 ./install.sh
 ```
 
 ### Make it take effect
 ```
-source ~/.bashrc
+if [[ $SHELL = *zsh* ]]; then source ~/.zshrc; else source ~/.bashrc; fi
 ```

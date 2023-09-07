@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
-
 #**************************************************************************************************#
 #                                            Bash Prompt                                           #
 #**************************************************************************************************#
+
+os_type=$(uname -s)
 
 get_git() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -16,14 +16,21 @@ get_dir() {
     echo $(basename $(dirname $PWD))/$(basename $PWD)
 }
 
+get_machine_name() {
+    if [[ $SHELL == *zsh*  ]]; then
+        echo "%m"
+    else
+        echo "\h"
+    fi
+}
+
 # PS Format: (Red date) (Green host) (Golden branch) (Blue path) (Gray Prompt)
-PS1='
-\[$(tput bold)$(tput setaf 197)\]$(get_date)\[$(tput sgr0)\]\
-\[$(tput bold)$(tput setaf 46)\] \h\[$(tput sgr0)\]\
-\[$(tput bold)$(tput setaf 172)\]$(get_git)\[$(tput sgr0)\]\
-\[$(tput bold)$(tput setaf  39)\] $(get_dir)\[$(tput sgr0)\]\
-\[$(tput bold)$(tput setaf 244)\] \$ \[$(tput sgr0)\]\
-\[$(tput bold)\]'
+PS1="$(tput bold)$(tput setaf 197)$(get_date)$(tput sgr0)\
+$(tput bold)$(tput setaf 46) $(get_machine_name) $(tput sgr0)\
+$(tput bold)$(tput setaf 172)$(get_git)$(tput sgr0)\
+$(tput bold)$(tput setaf  39) $(get_dir)$(tput sgr0)\
+$(tput bold)$(tput setaf 244) \$ $(tput sgr0)\
+$(tput bold)"
 
 #**************************************************************************************************#
 #                                           Misc Stuffs                                            #
@@ -80,7 +87,7 @@ function gpush {
         if [[ ${opts} != *"-y"* ]]; then
             printf "Are you sure you want to push to ${var} (y/n)? "
             read answer
-            if [ "$answer" == "${answer#[Yy]}" ]; then
+            if [[ "$answer" == "${answer#[Yy]}" ]]; then
                 echo "$(tput setaf 197)Avoided Pushing to ${var}$(tput sgr0)"
                 return
             fi

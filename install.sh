@@ -36,15 +36,21 @@ vim -E -c PlugInstall -c q -c w -c q
 
 # Ref: https://www.ditig.com/256-colors-cheat-sheet for colors
 # Ref: https://unix.stackexchange.com/a/124409
-# Link bashrc
-sed -i "s|. ${dir}/bashrc||g" ~/.bashrc
-echo ". ${dir}/bashrc" >> ~/.bashrc
+# Link termrc
+if [[ $SHELL == *zsh*  ]]; then
+    TERMRC=~/.zshrc
+else
+    TERMRC=~/.bashrc
+fi
+
+sed -i"" -e "s|. ${dir}/termrc||g" ${TERMRC}
+echo ". ${dir}/termrc" >> ${TERMRC}
 
 ############################### LEET CODE ########################################
 if [[ $1 == "-l" ]]; then
     check_pkgs node
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-    . ~/.bashrc
+    . ${TERMRC}
     nvm install --lts
     npm install -g leetcode-cli
     leetcode plugin -i cookie.chrome

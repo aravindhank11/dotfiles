@@ -59,7 +59,7 @@ set -g set-titles on
 set -s escape-time 0
 
 # Resize aggressively
-setw -g aggressive-resize on
+setw -g aggressive-resize off
 
 
 

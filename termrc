@@ -27,7 +27,7 @@ elif [[ "$SHELL" == *zsh* ]]; then
 
 	setopt PROMPT_SUBST
 
-	PS1="%F{green}$(get_date)%F{reset} %F{blue}%m%F{reset} %F{yellow}$(get_git)%F{reset} %F{cyan}%2~%F{reset} %F{magenta}➤%F{reset} "
+	PS1="%F{green}$(get_date)%F{reset} %F{blue}%m%F{reset} %F{yellow}(\$vcs_info_msg_0_)%F{reset} %F{cyan}%2~%F{reset} %F{magenta}➤%F{reset} "
 fi
 
 

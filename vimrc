@@ -17,6 +17,7 @@ set path=.,,**
 set backspace=indent,eol,start
 set ignorecase
 set cursorline
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
 " Right side word limit "
 set colorcolumn=80

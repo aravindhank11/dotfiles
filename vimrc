@@ -47,22 +47,18 @@ augroup quickfix_tab | au!
     au filetype qf nnoremap <buffer> <C-t> <C-w><CR><C-w>T
 augroup END
 
-" use system clipboard by default
-if system('uname -s') == "Darwin\n"
-    set clipboard=unnamed "OSX
-else
-    set clipboard=unnamedplus "Linux
-endif
-
 set incsearch " incremental search (as string is being typed)
 set history=8192 " more history
 
 set pastetoggle=<leader>p
 
-vmap <C-y> "+y
+" System Copy (Ctrl + C) and Paste (Ctrl + V)
+set clipboard=unnamedplus
+vnoremap <C-v> "+p
+vnoremap <C-c> "+y
 
 " Mouse resizing for splits
-" NOTE: This will work only with mouse=a
+set mouse=a
 set ttymouse=xterm2
 
 "****************************** Plugins ******************************"
@@ -105,13 +101,6 @@ Plug 'https://github.com/python-mode/python-mode.git'
 " Async lint "
 Plug 'https://github.com/dense-analysis/ale.git'
 
-" Intelli-sense
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" System copy & paste
-" cp (to copy) and cv (to paste)
-Plug 'christoomey/vim-system-copy'
-
 call plug#end()
 
 "***************************** Pluggin Key mappings and sets ******************************"
@@ -126,7 +115,7 @@ nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
 " git colorful what changes am I making "
 set updatetime=1000
-let g:gitgutter_max_signs = 500
+let g:gitgutter_max_signs = 1000
 let g:gitgutter_map_keys = 0
 let g:gitgutter_override_sign_column_highlight = 0
 highlight clear SignColumn
@@ -179,7 +168,7 @@ endfun
 map f :call ShowFuncName() <CR>
 
 " NerdTree Toggle
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-n> :NERDTree %<CR>
 
 " Spell-check Markdown files and Git Commit Messages
 autocmd FileType markdown setlocal spell
@@ -188,12 +177,6 @@ autocmd FileType gitcommit setlocal spell
 " Enable dictionary auto-completion in Markdown files and Git Commit Messages
 autocmd FileType markdown setlocal complete+=kspell
 autocmd FileType gitcommit setlocal complete+=kspell
-
-" Open nerdtree if opened without args
-" autocmd StdinReadPre * let g:isReadingFromStdin = 2
-" autocmd VimEnter * if !argc() && !exists('g:isReadingFromStdin') | NERDTree | endif
-" autocmd VimEnter * NERDTree | wincmd p
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Linter
 let g:ale_linters={
@@ -207,14 +190,3 @@ set nobackup
 set nowritebackup
 set updatetime=300
 set signcolumn=yes
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction

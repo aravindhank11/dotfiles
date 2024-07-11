@@ -27,7 +27,7 @@ hi ColorColumn ctermbg=red guibg=grey
 set nocscopeverbose
 
 " Cursor Mode Settings
-let &t_SI.="\e[5 q" "SI = INSERT mode
+" let &t_SI.="\e[5 q" "SI = INSERT mode
 let &t_SR.="\e[5 q" "SR = REPLACE mode
 let &t_EI.="\e[5 q" "EI = NORMAL mode (ELSE)
 
@@ -189,4 +189,4 @@ set encoding=utf-8
 set nobackup
 set nowritebackup
 set updatetime=300
-set signcolumn=yes
+" set signcolumn=yes

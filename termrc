@@ -40,6 +40,12 @@ function finder {
 function find_and_replace {
     find ./ -type f -exec sed -i -e "s/$1/$2/g" {} \;
 }
+function clean_bazel {
+    # Delete all BUILD.bazel
+    find . -name BUILD.bazel | xargs -I{} rm -f {}
+    # Get all BUILD.bazel which were tracked
+   git status | grep BUILD.bazel | awk '{print $2}' | tr '\n' '\0' | xargs -0 git checkout --
+}
 alias ..="cd .."
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8

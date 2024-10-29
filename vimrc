@@ -58,7 +58,7 @@ vnoremap <C-v> "+p
 vnoremap <C-c> "+y
 
 " Mouse resizing for splits
-set mouse=a
+" set mouse=a
 set ttymouse=xterm2
 
 "****************************** Plugins ******************************"

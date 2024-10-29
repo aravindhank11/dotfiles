@@ -37,9 +37,20 @@ fi
 function finder {
     find . -name "$1"
 }
-function find_and_replace {
-    find ./ -type f -exec sed -i -e "s/$1/$2/g" {} \;
+find_and_replace() {
+    local search_string="$1"
+    local replace_string="${2:-}"
+
+    # Check if search string is provided
+    if [[ -z "$search_string" ]]; then
+        echo "Usage: find_and_replace <search_string> [replace_string]"
+        return 1
+    fi
+
+    # Use ripgrep to find files containing the search string and replace (or delete if replace_string is empty)
+    rg -l "$search_string" | xargs -I {} sed -i "s|$search_string|$replace_string|g" {}
 }
+
 function clean_bazel {
     # Delete all BUILD.bazel
     find . -name BUILD.bazel | xargs -I{} rm -f {}

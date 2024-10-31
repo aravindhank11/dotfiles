@@ -53,7 +53,7 @@ set history=8192 " more history
 set pastetoggle=<leader>p
 
 " System Copy (Ctrl + C) and Paste (Ctrl + V)
-set clipboard=unnamedplus
+set clipboard=unnamed
 vnoremap <C-v> "+p
 vnoremap <C-c> "+y
 
@@ -63,6 +63,9 @@ set ttymouse=xterm2
 
 "****************************** Plugins ******************************"
 call plug#begin('~/.vim/plugged')
+
+" Copilot "
+Plug 'https://github.com/github/copilot.vim.git'
 
 " Git stuffs "
 Plug 'https://github.com/tpope/vim-fugitive.git'

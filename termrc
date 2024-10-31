@@ -34,6 +34,9 @@ fi
 #**************************************************************************************************#
 #                                           Misc Stuffs                                            #
 #**************************************************************************************************#
+function public_ip {
+    dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com
+}
 function finder {
     find . -name "$1"
 }
@@ -62,9 +65,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LANGUAGE=en_US.UTF-8
 export EDITOR="vim"
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll='ls -alFG'
+alias la='ls -AG'
+alias l='ls -CFG'
 alias cls='clear && echo -en "\e[3J"'
 alias grep='grep --color'
 alias tree='tree --dirsfirst -C'

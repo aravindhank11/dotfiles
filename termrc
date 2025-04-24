@@ -51,7 +51,7 @@ find_and_replace() {
     fi
 
     # Use ripgrep to find files containing the search string and replace (or delete if replace_string is empty)
-    rg -l "$search_string" | xargs -I {} sed -i "s|$search_string|$replace_string|g" {}
+    rg -l "$search_string" | xargs -I {} sed -i "" "s|$search_string|$replace_string|g" {}
 }
 
 function clean_bazel {
@@ -80,10 +80,12 @@ alias dmesg='dmesg --color=auto --reltime --human --nopager --decode'
 alias gfetch="git fetch --all --tags -f"
 alias gbranch="git branch 2>/dev/null | grep '^*' | colrm 1 2"
 alias gcp="git cherry-pick"
+alias gcommit="git commit --no-verify"
 alias grebase="git pull --rebase origin"
 alias gpull='git fetch && git pull'
 alias gstatus='git status -uno'
 alias gclean='git clean -xdf -e "cscope*"'
+alias gadd="git ls-files -m | xargs git add"
 function gcheckout {
     curr_branch=$(gbranch)
     git checkout $@ && git branch -D ${curr_branch}
@@ -151,7 +153,7 @@ function bldcs {
         find $curr -type d \( -name build -o -name thirdparty -o -name test -o -name buildconfig -o -name dpdk \) -prune -false \
             -o -iname "*.c" -o -iname "*.cpp" -o -iname "*.h" -o -iname "*.hh" -o -iname "*.hpp" \
             -o -iname "*.py" -o -iname "*.cc" -o -iname "*.c++" -o -iname "*.proto" -o -iname "*.sh"  \
-            -o -iname "*.conf" -o -iname "*.txt" | xargs -I{} readlink -f {} > cscope.files
+            -o -iname "*.conf" -o -iname "*.txt" -o -iname "*.go" | xargs -I{} readlink -f {} > cscope.files
     fi
     cscope -q -b -i $curr/cscope.files >/dev/null 2>&1
     ctags -L $curr/cscope.files >/dev/null 2>&1
